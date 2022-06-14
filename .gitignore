@@ -2,3 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
+*.pdf
+*.jpeg
+data/raw_data/*
+data/processed_data/*
+figures/*
+results*
