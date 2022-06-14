@@ -8,3 +8,12 @@ in_df %>%
   ggplot(. , aes(x = n)) +
   geom_histogram() +
   labs(x = 'Number of rows', y = 'Number of processIDs')
+
+
+more_info <- in_df %>%
+  mutate(trimmed_read = gsub('-', '', Sequence),
+         readlength = nchar(Sequence),
+            trimmed_readlength = nchar(trimmed_read),
+         read_is_unpadded = ifelse(readlength == trimmed_readlength, T, F))
+
+more_info %>% group_by(read_is_unpadded) %>% summarise(n = n())
