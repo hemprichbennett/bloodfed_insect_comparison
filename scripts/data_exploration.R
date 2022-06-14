@@ -1,4 +1,5 @@
 library(tidyverse)
+library(rentrez)
 
 in_df <- readxl::read_excel('data/raw_data/29_9_21 Heath trap SMRT-00672_mBraveoutput_EVZ20210929-1.xlsm')
 
@@ -17,3 +18,15 @@ more_info <- in_df %>%
          read_is_unpadded = ifelse(readlength == trimmed_readlength, T, F))
 
 more_info %>% group_by(read_is_unpadded) %>% summarise(n = n())
+
+# we cannot identify any of these sequences using the BOLD r package 
+# as that only works for querying CO1
+
+more_info %>%
+  group_by(Phylum) %>%
+  summarise(nrows = n())
+
+more_info %>%
+  filter(Phylum == 'Arthropoda') %>%
+  group_by(Order) %>%
+  summarise(nrows = n())
