@@ -11,3 +11,6 @@ figures/*
 results*
 *.fastq
 *.fastq.gz
+work/
+.nextflow.log*
+.nextflow/cache/*
