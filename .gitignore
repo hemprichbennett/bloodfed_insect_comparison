@@ -14,3 +14,4 @@ results*
 work/
 .nextflow.log*
 .nextflow/cache/*
+*.DS_Store
