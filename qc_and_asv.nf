@@ -1,4 +1,4 @@
-params.indir = 'data/processed_data/demultiplexed/'
+params.indir = 'data/processed_data/filtered/'
 
 toSearch = params.indir + '**/*{1,2}*.fastq.gz'
 
