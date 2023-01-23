@@ -9,8 +9,9 @@ fwd_out <- args[3]
 rev_out <- args[4]
 
 library(dada2)
-
+plotQualityProfile(fwd_in)
+plotQualityProfile(rev_in)
 out <- filterAndTrim(fwd_in, fwd_out, rev_in, rev_out,
-  maxN = 0, maxEE = c(2, 2), rm.phix = TRUE,
+  maxN = 0, maxEE = c(4, 4), rm.phix = TRUE,
   compress = TRUE, multithread = TRUE
 ) # On Windows set multithread=FALSE
