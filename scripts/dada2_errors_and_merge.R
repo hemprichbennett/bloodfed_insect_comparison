@@ -15,29 +15,31 @@ library(dada2)
 
 args <- as.character(commandArgs(trailingOnly = TRUE))
 if (length(args) > 0) {
-  filtpathF <- args[1] # the directory containing your filtered forward fastqs
-  filtpathR <- args[2] # the directory containing your filtered reverse fastqs
-  run_path <- args[3]
-  basepath <- args[4]
+  # filtpathF <- args[1] # the directory containing your filtered forward fastqs
+  # filtpathR <- args[2] # the directory containing your filtered reverse fastqs
+  run_path <- args[1]
+  basepath <- args[2]
+  print('using args')
 } else {
   filtpathF <- "temp_output_files/f_dir/"
   filtpathR <- "temp_output_files/r_dir/"
   run_path <- "data/raw_data/interactions/run1/"
   basepath <- getwd()
+  print('not using args')
 }
 
-cat("filtpathF is", filtpathF)
-cat("filtpathR is", filtpathR)
+# cat("filtpathF is", filtpathF)
+# cat("filtpathR is", filtpathR)
 cat("run_path is", run_path)
 cat("basepath is", basepath)
 
 # Isolate the run name
-run_name <- strsplit(run_path, split = "\\/")[[1]] # make a vector of split path
-run_name <- run_name[length(run_name)] # select its final element
+# run_name <- strsplit(run_path, split = "\\/")[[1]] # make a vector of split path
+# run_name <- run_name[length(run_name)] # select its final element
 
 
 # Where all the files will all be saved
-outdir <- paste0(basepath, "/data/processed_data/interactions/", run_name)
+outdir <- paste0(basepath, "/data/processed_data/interactions/BMO2")
 cat("outdir is", outdir)
 if (!dir.exists(outdir)) {
   dir.create(outdir)
@@ -53,8 +55,8 @@ if (!dir.exists(individual_fasta_dir)) {
 
 # File parsing
 
-filtFs <- list.files(filtpathF, full.names = TRUE)
-filtRs <- list.files(filtpathR, full.names = TRUE)
+filtFs <- list.files('.', pattern = '*_f', full.names = TRUE)
+filtRs <- list.files('.', pattern = '*_r', full.names = TRUE)
 
 sample.names <- gsub(".+\\/", "", filtFs)
 sample.names <- gsub("_f$|_r$", "", sample.names)
@@ -93,13 +95,13 @@ rm(derepR)
 
 
 # Save a fasta for each sequencing file
-for (nm in names(mergers)) {
-  mrg <- mergers[[nm]]
-  if (nrow(mrg) > 0) {
-    uniquesToFasta(mrg,
-                   paste0(outdir, "/sample_asv_fastas/", nm, ".fasta"))
-  }
-}
+# for (nm in names(mergers)) {
+#   mrg <- mergers[[nm]]
+#   if (nrow(mrg) > 0) {
+#     uniquesToFasta(mrg,
+#                    paste0(outdir, "/sample_asv_fastas/", nm, ".fasta"))
+#   }
+# }
 
 
 
@@ -129,7 +131,7 @@ edgelist <- reshape2::melt(seqtab,
 )
 
 # add run name
-edgelist$run <- run_name
+#edgelist$run <- run_name
 
 # Get rid of null-edges to save space
 edgelist <- dplyr::filter(edgelist, n_copies != 0)
