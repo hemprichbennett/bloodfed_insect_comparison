@@ -1,4 +1,4 @@
-params.indir = 'data/processed_data/filtered/'
+params.indir = 'data/processed_data/filtered/BM02'
 
 toSearch = params.indir + '**/*{1,2}*.fastq.gz'
 
@@ -52,33 +52,15 @@ process dada2_quality_filtering{
   """
 }
 
-process input_dir_for_asvs{
+process make_asvs{
 
   input:
   file f_file from filtered_fwds.collect()
   file r_file from filtered_revs.collect()
 
-  output:
-  file f_dir into f_dir_channel
-  file r_dir into r_dir_channel
-
+  
   shell:
   """
-  mkdir -p f_dir
-  mv $f_file f_dir
-  mkdir -p r_dir
-  mv $r_file r_dir
-  """
-}
-
-
-process dada2_merge{
-  input:
-  file f_dir from f_dir_channel
-  file r_dir from r_dir_channel
-
-  shell:
-  """
-  Rscript $basedir/scripts/dada2_errors_and_merge.R $f_dir $r_dir $params.indir $basedir
+  Rscript $basedir/scripts/dada2_errors_and_merge.R $params.indir $basedir
   """
 }
