@@ -12,8 +12,8 @@ qiime feature-classifier classify-sklearn \
 
 # visualise the classifications
 qiime metadata tabulate \
-     --m-input-file data/processed_data/BM02_taxonomy.qza \
-     --o-visualization results/BM02_taxonomy.qza
+     --m-input-file data/processed_data/BM01_taxonomy.qza \
+     --o-visualization results/BM01_taxonomy.qzv
 
 # import the data
 qiime tools import \
@@ -29,5 +29,5 @@ qiime feature-classifier classify-sklearn \
 
 # visualise the classifications
 qiime metadata tabulate \
-     --m-input-file data/processed_data/BM01_taxonomy.qza \
-     --o-visualization results/BM01_taxonomy.qza
+     --m-input-file data/processed_data/BM02_taxonomy.qza \
+     --o-visualization results/BM02_taxonomy.qzv
