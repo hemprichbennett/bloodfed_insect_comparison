@@ -11,7 +11,7 @@ qiime feature-classifier classify-sklearn \
 
 qiime tools import \
   --input-path  data/processed_data/interactions/BMO2/all_asvs.fasta \
-  --output-path data/processed_data/BM02.fasta \
+  --output-path data/processed_data/BM02_asvs.qza \
   --type 'FeatureData[Sequence]'
 
 qiime feature-classifier classify-sklearn \
@@ -19,4 +19,3 @@ qiime feature-classifier classify-sklearn \
      --i-reads data/processed_data/BM02_asvs.qza \
      --o-classification data/processed_data/BM02_taxonomy.qza
 
-     
